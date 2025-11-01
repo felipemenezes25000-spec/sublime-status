@@ -9,88 +9,119 @@ All colors MUST be HSL.
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
+    --foreground: 217 91% 14%;
+    
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
+    --card-foreground: 217 91% 14%;
+    
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --popover-foreground: 217 91% 14%;
+    
+    --primary: 217 91% 42%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 217 91% 14%;
+    
+    --muted: 210 40% 96%;
+    --muted-foreground: 217 32% 46%;
+    
+    --accent: 210 40% 96%;
+    --accent-foreground: 217 91% 14%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 214 31% 91%;
+    --input: 214 31% 91%;
+    --ring: 217 91% 42%;
+    
+    --radius: 1rem;
+    
+    /* Status Colors */
+    --status-ok: 142 76% 36%;
+    --status-warn: 43 96% 56%;
+    --status-error: 0 84% 60%;
+    --status-info: 217 91% 60%;
+    --status-maint: 189 94% 43%;
+    
+    /* BTG Brand */
+    --btg-blue: 217 91% 42%;
+    --btg-blue-light: 213 97% 87%;
+    --btg-dark: 217 91% 14%;
+    
+    /* Glassmorphism */
+    --glass: 0 0% 100%;
+    --glass-border: 0 0% 90%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 42%), hsl(213 97% 55%));
+    --gradient-aurora: radial-gradient(40% 30% at 20% 10%, hsl(217 91% 60% / 0.14), transparent 60%);
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px hsl(217 91% 14% / 0.05);
+    --shadow-md: 0 4px 6px hsl(217 91% 14% / 0.07);
+    --shadow-lg: 0 10px 15px hsl(217 91% 14% / 0.1);
+    --shadow-glow: 0 0 40px hsl(217 91% 60% / 0.3);
+    
+    /* Transitions */
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 217 91% 6%;
     --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
+    
+    --card: 217 71% 8%;
     --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
+    
+    --popover: 217 71% 8%;
     --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
+    
+    --primary: 213 97% 65%;
+    --primary-foreground: 217 91% 6%;
+    
+    --secondary: 217 32% 17%;
     --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
+    
+    --muted: 217 32% 17%;
+    --muted-foreground: 215 20% 65%;
+    
+    --accent: 217 32% 17%;
     --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
+    
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    --border: 217 32% 17%;
+    --input: 217 32% 17%;
+    --ring: 213 97% 65%;
+    
+    /* Status Colors - Dark */
+    --status-ok: 142 76% 40%;
+    --status-warn: 43 96% 60%;
+    --status-error: 0 84% 60%;
+    --status-info: 217 91% 70%;
+    --status-maint: 189 94% 50%;
+    
+    /* Glassmorphism - Dark */
+    --glass: 217 71% 10%;
+    --glass-border: 217 32% 20%;
+    
+    /* Shadows - Dark */
+    --shadow-sm: 0 1px 2px hsl(0 0% 0% / 0.3);
+    --shadow-md: 0 4px 6px hsl(0 0% 0% / 0.4);
+    --shadow-lg: 0 10px 15px hsl(0 0% 0% / 0.5);
+    --shadow-glow: 0 0 40px hsl(213 97% 65% / 0.4);
+  }
+  
+  /* Colorblind Mode */
+  .colorblind {
+    --status-ok: 174 62% 47%;
+    --status-warn: 40 74% 65%;
+    --status-error: 14 78% 62%;
+    --status-info: 199 61% 49%;
+    --status-maint: 270 58% 58%;
   }
 }
 
@@ -100,6 +131,102 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+  
+  /* Animated Background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: -20%;
+    pointer-events: none;
+    z-index: -2;
+    background: radial-gradient(40% 30% at 20% 10%, hsl(var(--primary) / 0.14), transparent 60%),
+                radial-gradient(30% 25% at 80% 15%, hsl(var(--primary) / 0.12), transparent 60%),
+                radial-gradient(25% 20% at 50% 90%, hsl(var(--primary) / 0.10), transparent 60%);
+    animation: aurora 30s ease-in-out infinite alternate;
+    filter: blur(2px);
+  }
+  
+  @keyframes aurora {
+    0% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(-2%, 1.5%, 0) scale(1.04); }
+    100% { transform: translate3d(2%, -2%, 0) scale(1.02); }
+  }
+  
+  /* Noise Texture */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" opacity=".03"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2"/></filter><rect width="100%" height="100%" filter="url(%23n)"/></svg>');
+    opacity: 0.5;
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    body::before {
+      animation: none !important;
+    }
+  }
+}
+
+/* Glassmorphism Cards */
+@layer components {
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-xl border border-glass-border rounded-2xl;
+    box-shadow: var(--shadow-md);
+  }
+  
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.5), transparent 60%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+  }
+  
+  .glass-card:hover::before {
+    opacity: 1;
+  }
+}
+
+/* Status Dots */
+@layer utilities {
+  .status-dot {
+    @apply w-2 h-2 rounded-full inline-block;
+  }
+  
+  .status-dot-ok {
+    @apply bg-[hsl(var(--status-ok))];
+    box-shadow: 0 0 8px hsl(var(--status-ok) / 0.5);
+  }
+  
+  .status-dot-warn {
+    @apply bg-[hsl(var(--status-warn))];
+    box-shadow: 0 0 8px hsl(var(--status-warn) / 0.5);
+  }
+  
+  .status-dot-error {
+    @apply bg-[hsl(var(--status-error))];
+    box-shadow: 0 0 8px hsl(var(--status-error) / 0.5);
+  }
+  
+  .status-dot-info {
+    @apply bg-[hsl(var(--status-info))];
+    box-shadow: 0 0 8px hsl(var(--status-info) / 0.5);
+  }
+  
+  .status-dot-maint {
+    @apply bg-[hsl(var(--status-maint))];
+    box-shadow: 0 0 8px hsl(var(--status-maint) / 0.5);
   }
 }
