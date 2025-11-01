@@ -1,12 +1,14 @@
 import { KPI } from '@/types/status';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { KPITooltip } from './KPITooltip';
 
 interface KPICardProps {
   kpi: KPI;
+  type: 'mttr' | 'mtbf' | 'sla' | 'slo';
 }
 
-export const KPICard = ({ kpi }: KPICardProps) => {
+export const KPICard = ({ kpi, type }: KPICardProps) => {
   const getTrendIcon = () => {
     if (!kpi.trend) return <Minus className="h-4 w-4 text-muted-foreground" />;
     if (kpi.trend === 'up')
@@ -17,9 +19,12 @@ export const KPICard = ({ kpi }: KPICardProps) => {
   };
 
   return (
-    <div className="glass-card relative overflow-hidden p-4 hover:scale-105 transition-transform duration-300">
-      <div className="flex items-start justify-between mb-2">
-        <h3 className="text-sm font-medium text-muted-foreground">{kpi.label}</h3>
+    <div className="glass-card p-5 hover:shadow-lg transition-all duration-300">
+      <div className="flex items-start justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <h3 className="text-sm font-medium text-muted-foreground">{kpi.label}</h3>
+          <KPITooltip type={type} />
+        </div>
         {getTrendIcon()}
       </div>
       
@@ -29,7 +34,7 @@ export const KPICard = ({ kpi }: KPICardProps) => {
           {kpi.change && (
             <p
               className={cn(
-                'text-xs mt-1',
+                'text-xs mt-2 font-medium',
                 kpi.trend === 'up' && 'text-status-ok',
                 kpi.trend === 'down' && 'text-status-error',
                 !kpi.trend && 'text-muted-foreground'
@@ -40,9 +45,6 @@ export const KPICard = ({ kpi }: KPICardProps) => {
           )}
         </div>
       </div>
-
-      {/* Glow effect */}
-      <div className="absolute -bottom-2 -right-2 w-20 h-20 bg-primary/10 rounded-full blur-xl" />
     </div>
   );
 };

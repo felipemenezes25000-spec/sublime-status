@@ -17,6 +17,7 @@ export interface Subsystem {
     latency?: string;
     errorRate?: string;
     throughput?: string;
+    saturation?: string;
   };
 }
 

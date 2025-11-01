@@ -3,7 +3,7 @@ import { StatusBadge } from './StatusBadge';
 import { ChevronDown, Activity } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
+import { GoldenSignalsTooltip } from './GoldenSignalsTooltip';
 
 interface SystemCardProps {
   system: System;
@@ -45,7 +45,10 @@ export const SystemCard = ({ system }: SystemCardProps) => {
       {expanded && system.subsystems && system.subsystems.length > 0 && (
         <div className="px-4 pb-4 space-y-2 animate-slide-up">
           <div className="border-t border-glass-border pt-3">
-            <h4 className="text-sm font-medium text-muted-foreground mb-3">Subsistemas</h4>
+            <div className="flex items-center gap-2 mb-3">
+              <h4 className="text-sm font-medium text-muted-foreground">Subsistemas - 4 Golden Signals</h4>
+              <GoldenSignalsTooltip />
+            </div>
             <div className="grid gap-2">
               {system.subsystems.map((sub) => (
                 <div
@@ -55,10 +58,31 @@ export const SystemCard = ({ system }: SystemCardProps) => {
                   <div className="flex-1">
                     <p className="font-medium">{sub.name}</p>
                     {sub.metrics && (
-                      <div className="flex gap-4 mt-1 text-xs text-muted-foreground">
-                        {sub.metrics.latency && <span>Latência: {sub.metrics.latency}</span>}
-                        {sub.metrics.errorRate && <span>Erro: {sub.metrics.errorRate}</span>}
-                        {sub.metrics.throughput && <span>Vazão: {sub.metrics.throughput}</span>}
+                      <div className="grid grid-cols-2 gap-x-4 gap-y-1 mt-2 text-xs">
+                        {sub.metrics.latency && (
+                          <div className="flex items-center gap-1">
+                            <span className="text-muted-foreground">Latência:</span>
+                            <span className="font-medium">{sub.metrics.latency}</span>
+                          </div>
+                        )}
+                        {sub.metrics.throughput && (
+                          <div className="flex items-center gap-1">
+                            <span className="text-muted-foreground">Tráfego:</span>
+                            <span className="font-medium">{sub.metrics.throughput}</span>
+                          </div>
+                        )}
+                        {sub.metrics.errorRate && (
+                          <div className="flex items-center gap-1">
+                            <span className="text-muted-foreground">Erros:</span>
+                            <span className="font-medium">{sub.metrics.errorRate}</span>
+                          </div>
+                        )}
+                        {sub.metrics.saturation && (
+                          <div className="flex items-center gap-1">
+                            <span className="text-muted-foreground">Saturação:</span>
+                            <span className="font-medium">{sub.metrics.saturation}</span>
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
