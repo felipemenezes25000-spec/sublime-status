@@ -31,9 +31,7 @@ export const StatusHeader = () => {
           </div>
           <div>
             <h1 className="text-2xl tracking-tight py-0 px-0 mx-0 my-0 text-left font-bold md:text-xl">Status Page Command Center BTG Pactual</h1>
-            <p className="text-sm text-muted-foreground mt-1">
-              Atualizado há 2 minutos • Todos os sistemas operacionais
-            </p>
+            <p className="text-sm text-muted-foreground mt-1">Atualizado há 2 minutos </p>
           </div>
         </div>
 
