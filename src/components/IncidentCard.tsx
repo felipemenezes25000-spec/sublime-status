@@ -1,7 +1,8 @@
 import { Incident } from '@/types/status';
 import { StatusBadge } from './StatusBadge';
-import { Clock, AlertTriangle } from 'lucide-react';
-import { formatDistanceToNow } from 'date-fns';
+import { PriorityBadge } from './PriorityBadge';
+import { Clock, AlertCircle, ChevronRight } from 'lucide-react';
+import { format, formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
 interface IncidentCardProps {
@@ -10,66 +11,60 @@ interface IncidentCardProps {
 
 export const IncidentCard = ({ incident }: IncidentCardProps) => {
   const isResolved = !!incident.endTime;
-  const latestUpdate = incident.updates[incident.updates.length - 1];
 
   return (
-    <div className="glass-card relative overflow-hidden p-4 hover:scale-[1.02] transition-transform duration-300">
+    <div className="glass-card p-4 hover:shadow-md transition-shadow">
       <div className="flex items-start justify-between mb-3">
-        <div className="flex-1">
-          <div className="flex items-center gap-2 mb-2">
-            <AlertTriangle className="h-5 w-5 text-status-error" />
-            <h3 className="font-semibold">{incident.title}</h3>
-          </div>
-          <div className="flex flex-wrap gap-2 mb-2">
-            <StatusBadge status={incident.severity} label="" />
-            {incident.systems.map((sys) => (
-              <span
-                key={sys}
-                className="text-xs px-2 py-1 rounded-full bg-muted text-muted-foreground"
-              >
-                {sys}
+        <div className="flex items-start gap-3 flex-1">
+          <AlertCircle className="h-5 w-5 text-status-error mt-0.5" />
+          <div className="flex-1">
+            <h3 className="font-semibold text-base mb-1">{incident.title}</h3>
+            <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-2">
+              <span>{incident.area}</span>
+              <ChevronRight className="h-3 w-3" />
+              <span>{incident.journey}</span>
+              <ChevronRight className="h-3 w-3" />
+              <span className="font-medium">{incident.product}</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Clock className="h-3.5 w-3.5" />
+              <span>
+                {formatDistanceToNow(incident.startTime, { addSuffix: true, locale: ptBR })}
               </span>
-            ))}
+              {isResolved && (
+                <span className="text-status-ok font-medium">• Resolvido</span>
+              )}
+            </div>
           </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <PriorityBadge priority={incident.priority} />
+          <StatusBadge status={incident.severity} label="" />
         </div>
       </div>
 
-      <div className="space-y-2 text-sm">
-        <div className="flex items-center gap-2 text-muted-foreground">
-          <Clock className="h-4 w-4" />
-          <span>
-            Iniciado {formatDistanceToNow(incident.startTime, { addSuffix: true, locale: ptBR })}
-          </span>
+      {incident.updates.length > 0 && (
+        <div className="mt-3 pt-3 border-t border-glass-border space-y-2">
+          {incident.updates.map((update, idx) => (
+            <div key={idx} className="flex items-start gap-2">
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-xs font-semibold text-primary capitalize">
+                    {update.status === 'investigating' && '🔍 Investigando'}
+                    {update.status === 'identified' && '✓ Identificado'}
+                    {update.status === 'monitoring' && '👁 Monitorando'}
+                    {update.status === 'resolved' && '✅ Resolvido'}
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    {format(update.time, 'HH:mm', { locale: ptBR })}
+                  </span>
+                </div>
+                <p className="text-sm text-muted-foreground">{update.message}</p>
+              </div>
+            </div>
+          ))}
         </div>
-
-        {latestUpdate && (
-          <div className="p-3 rounded-lg bg-muted/30 border border-glass-border">
-            <p className="text-xs text-muted-foreground mb-1">Última atualização</p>
-            <p className="text-sm">{latestUpdate.message}</p>
-            <p className="text-xs text-muted-foreground mt-1">
-              {formatDistanceToNow(latestUpdate.time, { addSuffix: true, locale: ptBR })}
-            </p>
-          </div>
-        )}
-
-        {isResolved && (
-          <div className="flex items-center gap-2 text-status-ok text-sm font-medium">
-            <div className="w-2 h-2 rounded-full bg-status-ok" />
-            Resolvido
-          </div>
-        )}
-      </div>
-
-      {/* Priority indicator */}
-      <div
-        className={`absolute top-0 right-0 w-1 h-full ${
-          incident.severity === 'error'
-            ? 'bg-status-error'
-            : incident.severity === 'warn'
-            ? 'bg-status-warn'
-            : 'bg-status-info'
-        }`}
-      />
+      )}
     </div>
   );
 };

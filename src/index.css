@@ -122,6 +122,12 @@ All colors MUST be HSL.
     --status-maint: 189 84% 50%;
     --status-maint-bg: 189 84% 15%;
     
+    /* Ticker Animation */
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    
     /* Glassmorphism - Dark */
     --glass: 218 78% 12%;
     --glass-border: 217 80% 25%;
@@ -244,4 +250,27 @@ All colors MUST be HSL.
     @apply bg-[hsl(var(--status-maint))];
     box-shadow: 0 0 8px hsl(var(--status-maint) / 0.5);
   }
+
+  /* Ticker Styles */
+  .ticker-wrapper {
+    @apply w-full overflow-hidden;
+  }
+
+  .ticker-content {
+    @apply flex gap-6;
+    animation: ticker 30s linear infinite;
+  }
+
+  .ticker-content:hover {
+    animation-play-state: paused;
+  }
+
+  .ticker-item {
+    @apply flex items-center gap-2 px-4 py-2 rounded-lg bg-card/30 whitespace-nowrap;
+  }
+}
+
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }

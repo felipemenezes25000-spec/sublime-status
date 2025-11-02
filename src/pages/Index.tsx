@@ -2,25 +2,53 @@ import { StatusHeader } from '@/components/StatusHeader';
 import { OverallStatus } from '@/components/OverallStatus';
 import { StatusLegend } from '@/components/StatusLegend';
 import { KPICard } from '@/components/KPICard';
-import { SystemCard } from '@/components/SystemCard';
+import { AreaCard } from '@/components/AreaCard';
 import { IncidentCard } from '@/components/IncidentCard';
 import { MaintenanceCard } from '@/components/MaintenanceCard';
 import { UptimeBar } from '@/components/UptimeBar';
+import { WorldClockTicker } from '@/components/WorldClockTicker';
+import { AffectedProductsTicker } from '@/components/AffectedProductsTicker';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Search, Rss, Bell } from 'lucide-react';
-import { mockKPIs, mockSystems, mockIncidents, mockMaintenances, generateUptimeData } from '@/data/mockData';
+import { mockKPIs, mockAreas, mockIncidents, mockMaintenances, generateUptimeData } from '@/data/mockData';
 import { useState } from 'react';
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const uptimeData = generateUptimeData();
-  const filteredSystems = mockSystems.filter(system => system.name.toLowerCase().includes(searchQuery.toLowerCase()));
+
+  const hasErrors = mockAreas.some(area => area.status === 'error');
+  const hasWarnings = mockAreas.some(area => area.status === 'warn');
+  const overallStatus = hasErrors ? 'error' : hasWarnings ? 'warn' : 'ok';
+  const affectedCount = mockAreas.filter(a => a.status !== 'ok').length;
+
+  const filteredAreas = mockAreas.filter(area =>
+    area.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    area.journeys.some(j =>
+      j.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      j.products.some(p => p.name.toLowerCase().includes(searchQuery.toLowerCase()))
+    )
+  );
   return <div className="min-h-screen pb-20">
       <div className="container mx-auto px-4 py-6 max-w-7xl">
         <StatusHeader />
         
         {/* Overall Status */}
-        <OverallStatus status="ok" message="Todos os sistemas estão funcionando normalmente. Nenhum incidente ativo no momento." affectedSystems={0} />
+        <OverallStatus
+          status={overallStatus}
+          message={
+            overallStatus === 'ok'
+              ? 'Todos os sistemas estão funcionando normalmente. Nenhum incidente ativo no momento.'
+              : overallStatus === 'error'
+              ? 'Há incidentes críticos em andamento. Nossas equipes estão trabalhando na resolução.'
+              : 'Alguns sistemas apresentam degradação. Acompanhe os detalhes abaixo.'
+          }
+          affectedSystems={affectedCount}
+        />
+
+        {/* World Clock & Affected Products Tickers */}
+        <WorldClockTicker />
+        <AffectedProductsTicker areas={mockAreas} />
 
         {/* KPIs Section */}
         <section className="mb-8 animate-fade-in" style={{
@@ -68,7 +96,7 @@ const Index = () => {
       }}>
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input type="search" placeholder="Filtrar por sistema ou componente..." className="pl-10 glass-card bg-card/50" value={searchQuery} onChange={e => setSearchQuery(e.target.value)} />
+            <Input type="search" placeholder="Filtrar por área, jornada ou produto..." className="pl-10 glass-card bg-card/50" value={searchQuery} onChange={e => setSearchQuery(e.target.value)} />
           </div>
         </section>
 
@@ -79,19 +107,19 @@ const Index = () => {
           <div className="glass-card-lg">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
               <div>
-                <h2 className="text-2xl font-bold mb-1">Status das Áreas</h2>
-                <p className="text-sm text-muted-foreground">Monitoramento das principais áreas do banco</p>
+                <h2 className="text-2xl font-bold mb-1">Áreas, Jornadas e Produtos</h2>
+                <p className="text-sm text-muted-foreground">Estrutura hierárquica completa com 4 Golden Signals</p>
               </div>
               <div className="flex gap-2">
                 <StatusLegend />
               </div>
             </div>
             <div className="space-y-3">
-              {filteredSystems.map((system, index) => <div key={system.id} style={{
-              animationDelay: `${0.4 + index * 0.05}s`
-            }}>
-                  <SystemCard system={system} />
-                </div>)}
+              {filteredAreas.map((area, index) => (
+                <div key={area.id} style={{ animationDelay: `${0.5 + index * 0.05}s` }} className="animate-fade-in">
+                  <AreaCard area={area} />
+                </div>
+              ))}
             </div>
           </div>
         </section>
