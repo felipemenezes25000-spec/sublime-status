@@ -79,8 +79,8 @@ const Index = () => {
           <div className="glass-card-lg">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
               <div>
-                <h2 className="text-2xl font-bold mb-1">Status dos Sistemas</h2>
-                <p className="text-sm text-muted-foreground">Monitoramento em tempo real de todos os serviços</p>
+                <h2 className="text-2xl font-bold mb-1">Status das Àreas</h2>
+                <p className="text-sm text-muted-foreground">Monitoramento em tempo real de todas as àreas</p>
               </div>
               <div className="flex gap-2">
                 <StatusLegend />
