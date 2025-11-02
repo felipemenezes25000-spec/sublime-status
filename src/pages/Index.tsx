@@ -80,7 +80,7 @@ const Index = () => {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
               <div>
                 <h2 className="text-2xl font-bold mb-1">Status das Áreas</h2>
-                <p className="text-sm text-muted-foreground">Monitoramento em tempo real de todas as áreas</p>
+                <p className="text-sm text-muted-foreground">Monitoramento das principais áreas do banco</p>
               </div>
               <div className="flex gap-2">
                 <StatusLegend />

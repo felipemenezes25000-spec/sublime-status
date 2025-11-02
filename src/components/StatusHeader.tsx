@@ -30,7 +30,7 @@ export const StatusHeader = () => {
             <span className="text-lg font-extrabold text-primary-foreground">BTG</span>
           </div>
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold tracking-tight">Status Page Command Center</h1>
+            <h1 className="text-2xl tracking-tight py-0 px-0 mx-0 my-0 text-left font-bold md:text-xl">Status Page Command Center BTG Pactual</h1>
             <p className="text-sm text-muted-foreground mt-1">
               Atualizado há 2 minutos • Todos os sistemas operacionais
             </p>
