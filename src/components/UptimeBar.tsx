@@ -87,7 +87,7 @@ export const UptimeBar = ({
         </div>
         <div className="flex items-center gap-1.5">
           <div className="w-3 h-3 rounded-sm bg-status-error" />
-          <span className="text-muted-foreground">Indisponibilidade</span>
+          <span className="text-muted-foreground">Indisponível</span>
         </div>
         <div className="flex items-center gap-1.5">
           <div className="w-3 h-3 rounded-sm bg-status-maint" />
