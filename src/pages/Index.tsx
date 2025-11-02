@@ -29,7 +29,7 @@ const Index = () => {
           <div className="glass-card-lg">
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="text-2xl font-bold mb-1">KPIs</h2>
+                <h2 className="text-2xl font-bold mb-1">KPIs de Performace</h2>
                 <p className="text-sm text-muted-foreground">
               </p>
               </div>
