@@ -11,34 +11,27 @@ import { Button } from '@/components/ui/button';
 import { Search, Rss, Bell } from 'lucide-react';
 import { mockKPIs, mockSystems, mockIncidents, mockMaintenances, generateUptimeData } from '@/data/mockData';
 import { useState } from 'react';
-
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const uptimeData = generateUptimeData();
-
-  const filteredSystems = mockSystems.filter((system) =>
-    system.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  return (
-    <div className="min-h-screen pb-20">
+  const filteredSystems = mockSystems.filter(system => system.name.toLowerCase().includes(searchQuery.toLowerCase()));
+  return <div className="min-h-screen pb-20">
       <div className="container mx-auto px-4 py-6 max-w-7xl">
         <StatusHeader />
         
         {/* Overall Status */}
-        <OverallStatus 
-          status="ok" 
-          message="Todos os sistemas estão funcionando normalmente. Nenhum incidente ativo no momento."
-          affectedSystems={0}
-        />
+        <OverallStatus status="ok" message="Todos os sistemas estão funcionando normalmente. Nenhum incidente ativo no momento." affectedSystems={0} />
 
         {/* KPIs Section */}
-        <section className="mb-8 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+        <section className="mb-8 animate-fade-in" style={{
+        animationDelay: '0.1s'
+      }}>
           <div className="glass-card-lg">
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="text-2xl font-bold mb-1">Indicadores de Confiabilidade</h2>
-                <p className="text-sm text-muted-foreground">Métricas chave de desempenho operacional</p>
+                <h2 className="text-2xl font-bold mb-1">KPIs</h2>
+                <p className="text-sm text-muted-foreground">
+              </p>
               </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -51,7 +44,9 @@ const Index = () => {
         </section>
 
         {/* Uptime Timeline */}
-        <section className="mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+        <section className="mb-8 animate-fade-in" style={{
+        animationDelay: '0.2s'
+      }}>
           <div className="glass-card-lg">
             <div className="flex items-center justify-between mb-6">
               <div>
@@ -68,21 +63,19 @@ const Index = () => {
         </section>
 
         {/* Search */}
-        <section className="mb-6 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+        <section className="mb-6 animate-fade-in" style={{
+        animationDelay: '0.3s'
+      }}>
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Filtrar por sistema ou componente..."
-              className="pl-10 glass-card bg-card/50"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
+            <Input type="search" placeholder="Filtrar por sistema ou componente..." className="pl-10 glass-card bg-card/50" value={searchQuery} onChange={e => setSearchQuery(e.target.value)} />
           </div>
         </section>
 
         {/* Systems Section */}
-        <section className="mb-8 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+        <section className="mb-8 animate-fade-in" style={{
+        animationDelay: '0.4s'
+      }}>
           <div className="glass-card-lg">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
               <div>
@@ -94,11 +87,11 @@ const Index = () => {
               </div>
             </div>
             <div className="space-y-3">
-              {filteredSystems.map((system, index) => (
-                <div key={system.id} style={{ animationDelay: `${0.4 + index * 0.05}s` }}>
+              {filteredSystems.map((system, index) => <div key={system.id} style={{
+              animationDelay: `${0.4 + index * 0.05}s`
+            }}>
                   <SystemCard system={system} />
-                </div>
-              ))}
+                </div>)}
             </div>
           </div>
         </section>
@@ -106,7 +99,9 @@ const Index = () => {
         {/* Incidents and Maintenances */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {/* Incidents */}
-          <section className="animate-fade-in" style={{ animationDelay: '0.5s' }}>
+          <section className="animate-fade-in" style={{
+          animationDelay: '0.5s'
+        }}>
             <div className="glass-card-lg h-full">
               <div className="flex items-center justify-between mb-6">
                 <div>
@@ -118,15 +113,15 @@ const Index = () => {
                 </Button>
               </div>
               <div className="space-y-4">
-                {mockIncidents.map((incident) => (
-                  <IncidentCard key={incident.id} incident={incident} />
-                ))}
+                {mockIncidents.map(incident => <IncidentCard key={incident.id} incident={incident} />)}
               </div>
             </div>
           </section>
 
           {/* Maintenances */}
-          <section className="animate-fade-in" style={{ animationDelay: '0.6s' }}>
+          <section className="animate-fade-in" style={{
+          animationDelay: '0.6s'
+        }}>
             <div className="glass-card-lg h-full">
               <div className="flex items-center justify-between mb-6">
                 <div>
@@ -135,16 +130,16 @@ const Index = () => {
                 </div>
               </div>
               <div className="space-y-4">
-                {mockMaintenances.map((maintenance) => (
-                  <MaintenanceCard key={maintenance.id} maintenance={maintenance} />
-                ))}
+                {mockMaintenances.map(maintenance => <MaintenanceCard key={maintenance.id} maintenance={maintenance} />)}
               </div>
             </div>
           </section>
         </div>
 
         {/* Subscription Section */}
-        <section className="animate-fade-in" style={{ animationDelay: '0.7s' }}>
+        <section className="animate-fade-in" style={{
+        animationDelay: '0.7s'
+      }}>
           <div className="glass-card-lg">
             <div className="flex items-center justify-between mb-6">
               <div>
@@ -153,16 +148,8 @@ const Index = () => {
               </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 mb-4">
-              <Input
-                type="email"
-                placeholder="seu@email.com"
-                className="flex-1 glass-card bg-card/50"
-              />
-              <Input
-                type="url"
-                placeholder="https://webhook.site/... (opcional)"
-                className="flex-1 glass-card bg-card/50"
-              />
+              <Input type="email" placeholder="seu@email.com" className="flex-1 glass-card bg-card/50" />
+              <Input type="url" placeholder="https://webhook.site/... (opcional)" className="flex-1 glass-card bg-card/50" />
               <Button className="bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20">
                 <Bell className="h-4 w-4 mr-2" />
                 Assinar
@@ -187,12 +174,12 @@ const Index = () => {
         </section>
 
         {/* Footer */}
-        <footer className="mt-12 text-center text-sm text-muted-foreground animate-fade-in" style={{ animationDelay: '0.8s' }}>
+        <footer className="mt-12 text-center text-sm text-muted-foreground animate-fade-in" style={{
+        animationDelay: '0.8s'
+      }}>
           <p>© 2025 BTG Pactual • Status Page • Todos os dados são simulados para demonstração</p>
         </footer>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
