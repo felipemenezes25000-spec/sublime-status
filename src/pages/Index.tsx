@@ -8,6 +8,7 @@ import { MaintenanceCard } from '@/components/MaintenanceCard';
 import { UptimeBar } from '@/components/UptimeBar';
 import { WorldClockTicker } from '@/components/WorldClockTicker';
 import { AffectedProductsTicker } from '@/components/AffectedProductsTicker';
+import { AllProductsTicker } from '@/components/AllProductsTicker';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Search, Rss, Bell } from 'lucide-react';
@@ -48,6 +49,7 @@ const Index = () => {
 
         {/* World Clock & Affected Products Tickers */}
         <WorldClockTicker />
+        <AllProductsTicker />
         <AffectedProductsTicker areas={mockAreas} />
 
         {/* KPIs Section */}
