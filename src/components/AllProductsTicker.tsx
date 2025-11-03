@@ -37,7 +37,7 @@ export const AllProductsTicker = () => {
                 </span>
                 <div className="flex items-center gap-1">
                   {product.priority && <PriorityBadge priority={product.priority} />}
-                  <StatusBadge status={product.status} label="" showDot={true} />
+                  <StatusBadge status={product.status} label="" size="sm" />
                 </div>
               </div>
             );

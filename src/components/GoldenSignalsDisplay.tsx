@@ -7,36 +7,36 @@ interface GoldenSignalsDisplayProps {
 
 export const GoldenSignalsDisplay = ({ signals }: GoldenSignalsDisplayProps) => {
   return (
-    <div className="grid grid-cols-2 gap-3 mt-3">
-      <div className="flex items-center gap-2">
-        <Timer className="h-4 w-4 text-blue-500" />
-        <div className="flex-1">
-          <p className="text-xs text-muted-foreground">Latência p95</p>
-          <p className="font-mono font-semibold text-sm">{signals.latency} ms</p>
+    <div className="grid grid-cols-2 gap-2.5">
+      <div className="flex items-center gap-2 p-2 rounded-md bg-accent/20">
+        <Timer className="h-3.5 w-3.5 text-blue-500 flex-shrink-0" />
+        <div className="flex-1 min-w-0">
+          <p className="text-[10px] text-muted-foreground uppercase font-medium">Latência p95</p>
+          <p className="font-mono font-semibold text-xs">{signals.latency} ms</p>
         </div>
       </div>
       
-      <div className="flex items-center gap-2">
-        <GitBranch className="h-4 w-4 text-green-500" />
-        <div className="flex-1">
-          <p className="text-xs text-muted-foreground">Tráfego</p>
-          <p className="font-mono font-semibold text-sm">{signals.traffic} req/s</p>
+      <div className="flex items-center gap-2 p-2 rounded-md bg-accent/20">
+        <GitBranch className="h-3.5 w-3.5 text-green-500 flex-shrink-0" />
+        <div className="flex-1 min-w-0">
+          <p className="text-[10px] text-muted-foreground uppercase font-medium">Tráfego</p>
+          <p className="font-mono font-semibold text-xs">{signals.traffic} req/s</p>
         </div>
       </div>
       
-      <div className="flex items-center gap-2">
-        <TriangleAlert className="h-4 w-4 text-red-500" />
-        <div className="flex-1">
-          <p className="text-xs text-muted-foreground">Erros</p>
-          <p className="font-mono font-semibold text-sm">{signals.errors.toFixed(2)} %</p>
+      <div className="flex items-center gap-2 p-2 rounded-md bg-accent/20">
+        <TriangleAlert className="h-3.5 w-3.5 text-red-500 flex-shrink-0" />
+        <div className="flex-1 min-w-0">
+          <p className="text-[10px] text-muted-foreground uppercase font-medium">Erros</p>
+          <p className="font-mono font-semibold text-xs">{signals.errors.toFixed(2)} %</p>
         </div>
       </div>
       
-      <div className="flex items-center gap-2">
-        <Gauge className="h-4 w-4 text-orange-500" />
-        <div className="flex-1">
-          <p className="text-xs text-muted-foreground">Saturação</p>
-          <p className="font-mono font-semibold text-sm">{signals.saturation} %</p>
+      <div className="flex items-center gap-2 p-2 rounded-md bg-accent/20">
+        <Gauge className="h-3.5 w-3.5 text-orange-500 flex-shrink-0" />
+        <div className="flex-1 min-w-0">
+          <p className="text-[10px] text-muted-foreground uppercase font-medium">Saturação</p>
+          <p className="font-mono font-semibold text-xs">{signals.saturation} %</p>
         </div>
       </div>
     </div>

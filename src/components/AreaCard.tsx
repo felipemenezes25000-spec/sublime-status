@@ -16,35 +16,36 @@ export const AreaCard = ({ area }: AreaCardProps) => {
   const IconComponent = (LucideIcons as any)[area.icon] || LucideIcons.Activity;
 
   return (
-    <div className="glass-card relative overflow-hidden transition-all duration-300 hover:shadow-lg">
+    <div className="glass-card overflow-hidden">
       <button
         onClick={() => setExpanded(!expanded)}
-        className="w-full px-5 py-4 flex items-center justify-between hover:bg-card/30 transition-colors"
+        className="w-full p-4 flex items-center justify-between hover:bg-accent/5 transition-colors"
       >
-        <div className="flex items-center gap-4 flex-1">
-          <IconComponent className="h-6 w-6 text-primary" />
-          <div className="flex-1 text-left">
-            <h3 className="font-bold text-xl">{area.name}</h3>
-            <p className="text-sm text-muted-foreground">
-              {area.journeys.length} {area.journeys.length === 1 ? 'jornada' : 'jornadas'}
+        <div className="flex items-center gap-3 flex-1 min-w-0">
+          <IconComponent className="h-5 w-5 text-primary flex-shrink-0" />
+          <div className="flex-1 min-w-0 text-left">
+            <div className="flex items-center gap-2 mb-1 flex-wrap">
+              <h3 className="text-base font-semibold">{area.name}</h3>
+              <StatusBadge status={area.status} size="sm" />
+            </div>
+            <p className="text-xs text-muted-foreground">
+              {area.journeys.length} {area.journeys.length === 1 ? 'jornada' : 'jornadas'} •{' '}
+              {area.journeys.reduce((acc, j) => acc + j.products.length, 0)} produtos
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <StatusBadge status={area.status} label="" />
-          <ChevronDown
-            className={cn(
-              'h-5 w-5 text-muted-foreground transition-transform duration-300',
-              expanded && 'rotate-180'
-            )}
-          />
-        </div>
+        <ChevronDown
+          className={cn(
+            'h-4 w-4 text-muted-foreground transition-transform duration-200 flex-shrink-0 ml-3',
+            expanded && 'rotate-180'
+          )}
+        />
       </button>
 
       {expanded && area.journeys.length > 0 && (
-        <div className="px-5 pb-4 space-y-3 animate-slide-up">
-          <div className="border-t border-glass-border pt-4">
+        <div className="px-4 pb-4 space-y-3 animate-fade-in border-t border-border/50">
+          <div className="pt-3">
             {area.journeys.map((journey) => (
               <JourneyCard key={journey.id} journey={journey} areaName={area.name} />
             ))}

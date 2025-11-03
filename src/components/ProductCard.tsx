@@ -1,11 +1,10 @@
 import { Product } from '@/types/status';
 import { StatusBadge } from './StatusBadge';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Activity } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { GoldenSignalsDisplay } from './GoldenSignalsDisplay';
 import { PriorityBadge } from './PriorityBadge';
-import * as LucideIcons from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
@@ -15,43 +14,42 @@ interface ProductCardProps {
 
 export const ProductCard = ({ product, areaName, journeyName }: ProductCardProps) => {
   const [expanded, setExpanded] = useState(false);
-  
-  const IconComponent = (LucideIcons as any)[product.icon] || LucideIcons.Activity;
 
   return (
-    <div className="rounded-lg bg-card/30 hover:bg-card/50 transition-colors overflow-hidden">
+    <div className="glass-card">
       <button
         onClick={() => setExpanded(!expanded)}
-        className="w-full px-4 py-3 flex items-center justify-between"
+        className="w-full p-3 flex items-center justify-between hover:bg-accent/5 transition-colors"
       >
-        <div className="flex items-center gap-3 flex-1">
-          <IconComponent className="h-4 w-4 text-primary/70" />
-          <div className="flex-1 text-left">
-            <p className="font-medium text-sm">{product.name}</p>
-            <p className="text-xs text-muted-foreground">
-              {areaName} › {journeyName}
-            </p>
+        <div className="flex items-center gap-2.5 flex-1 min-w-0">
+          <div className="flex-1 min-w-0 text-left">
+            <div className="flex items-center gap-2 mb-1 flex-wrap">
+              <h4 className="font-medium text-sm">{product.name}</h4>
+              <StatusBadge status={product.status} size="sm" />
+              {product.priority && <PriorityBadge priority={product.priority} />}
+            </div>
+            <div className="flex items-center gap-1.5 text-xs text-muted-foreground flex-wrap">
+              <span className="flex items-center gap-1">
+                <Activity className="h-3 w-3" />
+                {areaName}
+              </span>
+              <span>•</span>
+              <span>{journeyName}</span>
+            </div>
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          <PriorityBadge priority={product.priority} />
-          <StatusBadge status={product.status} label="" showDot={true} />
-          <ChevronDown
-            className={cn(
-              'h-4 w-4 text-muted-foreground transition-transform duration-300',
-              expanded && 'rotate-180'
-            )}
-          />
-        </div>
+        <ChevronDown
+          className={cn(
+            'h-3.5 w-3.5 text-muted-foreground transition-transform duration-200 flex-shrink-0 ml-2',
+            expanded && 'rotate-180'
+          )}
+        />
       </button>
 
       {expanded && (
-        <div className="px-4 pb-3 animate-slide-up">
-          <div className="border-t border-glass-border pt-3">
-            <h5 className="text-xs font-semibold text-muted-foreground mb-2 flex items-center gap-2">
-              4 Golden Signals
-            </h5>
+        <div className="px-3 pb-3 border-t border-border/50 animate-fade-in">
+          <div className="pt-3">
             <GoldenSignalsDisplay signals={product.signals} />
           </div>
         </div>

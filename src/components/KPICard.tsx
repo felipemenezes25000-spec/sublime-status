@@ -19,31 +19,29 @@ export const KPICard = ({ kpi, type }: KPICardProps) => {
   };
 
   return (
-    <div className="glass-card p-5 hover:shadow-lg transition-all duration-300">
-      <div className="flex items-start justify-between mb-3">
-        <div className="flex items-center gap-2">
-          <h3 className="text-sm font-medium text-muted-foreground">{kpi.label}</h3>
+    <div className="glass-card p-4 hover:shadow-md transition-all duration-200">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-1.5">
+          <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wide">{kpi.label}</h3>
           <KPITooltip type={type} />
         </div>
         {getTrendIcon()}
       </div>
       
-      <div className="flex items-end justify-between">
-        <div>
-          <p className="text-3xl font-bold tracking-tight">{kpi.value}</p>
-          {kpi.change && (
-            <p
-              className={cn(
-                'text-xs mt-2 font-medium',
-                kpi.trend === 'up' && 'text-status-ok',
-                kpi.trend === 'down' && 'text-status-error',
-                !kpi.trend && 'text-muted-foreground'
-              )}
-            >
-              {kpi.change}
-            </p>
-          )}
-        </div>
+      <div className="space-y-2">
+        <p className="text-2xl sm:text-3xl font-bold">{kpi.value}</p>
+        {kpi.change && (
+          <p
+            className={cn(
+              'text-xs font-medium',
+              kpi.trend === 'up' && 'text-status-ok',
+              kpi.trend === 'down' && 'text-status-error',
+              !kpi.trend && 'text-muted-foreground'
+            )}
+          >
+            {kpi.change}
+          </p>
+        )}
       </div>
     </div>
   );
