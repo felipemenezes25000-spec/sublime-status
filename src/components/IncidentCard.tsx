@@ -1,8 +1,8 @@
 import { Incident } from '@/types/status';
 import { StatusBadge } from './StatusBadge';
 import { PriorityBadge } from './PriorityBadge';
-import { Clock, AlertCircle, ChevronRight } from 'lucide-react';
-import { format, formatDistanceToNow } from 'date-fns';
+import { Clock, AlertCircle, ChevronRight, PlayCircle, StopCircle, Timer } from 'lucide-react';
+import { format, formatDistanceToNow, differenceInMinutes, differenceInHours } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
 interface IncidentCardProps {
@@ -11,6 +11,23 @@ interface IncidentCardProps {
 
 export const IncidentCard = ({ incident }: IncidentCardProps) => {
   const isResolved = !!incident.endTime;
+  
+  // Calculate duration
+  const getDuration = () => {
+    const endTime = incident.endTime || new Date();
+    const minutes = differenceInMinutes(endTime, incident.startTime);
+    const hours = differenceInHours(endTime, incident.startTime);
+    
+    if (hours >= 24) {
+      const days = Math.floor(hours / 24);
+      const remainingHours = hours % 24;
+      return remainingHours > 0 ? `${days}d ${remainingHours}h` : `${days}d`;
+    } else if (hours > 0) {
+      const remainingMinutes = minutes % 60;
+      return remainingMinutes > 0 ? `${hours}h ${remainingMinutes}m` : `${hours}h`;
+    }
+    return `${minutes}m`;
+  };
 
   return (
     <div className="glass-card p-4 hover:shadow-md transition-shadow">
@@ -26,14 +43,29 @@ export const IncidentCard = ({ incident }: IncidentCardProps) => {
               <ChevronRight className="h-3 w-3" />
               <span className="font-medium">{incident.product}</span>
             </div>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Clock className="h-3.5 w-3.5" />
-              <span>
-                {formatDistanceToNow(incident.startTime, { addSuffix: true, locale: ptBR })}
-              </span>
-              {isResolved && (
-                <span className="text-status-ok font-medium">• Resolvido</span>
+            
+            {/* Impact Timeline */}
+            <div className="space-y-1.5 mt-2">
+              <div className="flex items-center gap-2 text-xs">
+                <PlayCircle className="h-3.5 w-3.5 text-status-error" />
+                <span className="text-muted-foreground">Início:</span>
+                <span className="font-medium">{format(incident.startTime, "dd/MM/yyyy 'às' HH:mm", { locale: ptBR })}</span>
+              </div>
+              
+              {isResolved && incident.endTime && (
+                <div className="flex items-center gap-2 text-xs">
+                  <StopCircle className="h-3.5 w-3.5 text-status-ok" />
+                  <span className="text-muted-foreground">Fim:</span>
+                  <span className="font-medium">{format(incident.endTime, "dd/MM/yyyy 'às' HH:mm", { locale: ptBR })}</span>
+                </div>
               )}
+              
+              <div className="flex items-center gap-2 text-xs">
+                <Timer className="h-3.5 w-3.5 text-primary" />
+                <span className="text-muted-foreground">Duração:</span>
+                <span className="font-medium">{getDuration()}</span>
+                {!isResolved && <span className="text-status-warn">(em andamento)</span>}
+              </div>
             </div>
           </div>
         </div>
