@@ -224,23 +224,28 @@ All colors MUST be HSL.
   }
 
   .status-pill-ok {
-    @apply bg-status-ok-bg text-status-ok;
+    background-color: hsl(var(--status-ok-bg));
+    color: hsl(var(--status-ok));
   }
 
   .status-pill-warn {
-    @apply bg-status-warn-bg text-status-warn;
+    background-color: hsl(var(--status-warn-bg));
+    color: hsl(var(--status-warn));
   }
 
   .status-pill-error {
-    @apply bg-status-error-bg text-status-error;
+    background-color: hsl(var(--status-error-bg));
+    color: hsl(var(--status-error));
   }
 
   .status-pill-info {
-    @apply bg-status-info-bg text-status-info;
+    background-color: hsl(var(--status-info-bg));
+    color: hsl(var(--status-info));
   }
 
   .status-pill-maint {
-    @apply bg-status-maint-bg text-status-maint;
+    background-color: hsl(var(--status-maint-bg));
+    color: hsl(var(--status-maint));
   }
 }
 
