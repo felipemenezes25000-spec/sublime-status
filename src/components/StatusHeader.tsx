@@ -26,11 +26,9 @@ export const StatusHeader = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 
-  const [activeTab, setActiveTab] = useState('status');
-
   return (
     <header className="mb-6">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded bg-primary flex items-center justify-center">
             <span className="text-primary-foreground font-bold text-sm">btg</span>
@@ -71,30 +69,6 @@ export const StatusHeader = () => {
             <Palette className="h-4 w-4" />
           </Button>
         </div>
-      </div>
-
-      {/* Navigation Tabs */}
-      <div className="border-b border-border mb-6">
-        <nav className="flex gap-1 -mb-px overflow-x-auto">
-          {[
-            { id: 'status', label: 'Status Operacional' },
-            { id: 'rotinas', label: 'Rotinas de Produção' },
-            { id: 'comunicacao', label: 'Comunicação' },
-            { id: 'cockpit', label: 'Cockpit Operacional' },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-2.5 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
-                activeTab === tab.id
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-border'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </nav>
       </div>
       
       <p className="text-xs text-muted-foreground">
