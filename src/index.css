@@ -122,16 +122,6 @@ All colors MUST be HSL.
     --status-maint: 189 84% 50%;
     --status-maint-bg: 189 84% 15%;
     
-    /* BTG Brand Colors - Dark */
-    --btg-darkest: 215 100% 91%;
-    --btg-darker: 215 100% 76%;
-    --btg-dark: 215 100% 67%;
-    --btg-primary: 215 73% 53%;
-    --btg-medium: 215 76% 40%;
-    --btg-light: 217 80% 31%;
-    --btg-lighter: 218 78% 20%;
-    --btg-lightest: 219 79% 9%;
-    
     /* Glassmorphism - Dark */
     --glass: 218 78% 12%;
     --glass-border: 217 80% 25%;

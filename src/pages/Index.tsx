@@ -43,47 +43,6 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Hero Section / Capa */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-primary via-primary-hover to-btg-dark border-b border-primary-hover">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnptMCAzNmMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnpNNiAzNmMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnptMC0zNmMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnoiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLW9wYWNpdHk9Ii4wNSIvPjwvZz48L3N2Zz4=')] opacity-20"></div>
-        
-        <div className="container mx-auto px-4 py-16 max-w-7xl relative">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            {/* Logo e Título */}
-            <div className="flex items-center gap-6">
-              <div className="w-20 h-20 rounded-xl bg-white shadow-2xl flex items-center justify-center">
-                <span className="text-primary font-bold text-3xl">btg</span>
-              </div>
-              <div>
-                <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
-                  Command Center
-                </h1>
-                <p className="text-lg text-primary-foreground/90">
-                  Monitoramento em Tempo Real de Sistemas & Infraestrutura
-                </p>
-              </div>
-            </div>
-
-            {/* Status Geral Destacado */}
-            <div className="glass-card bg-white/10 backdrop-blur-md border-white/20 px-8 py-6 text-center">
-              <p className="text-sm text-primary-foreground/80 mb-2 uppercase tracking-wider">Status Global</p>
-              <div className="flex items-center gap-3 justify-center">
-                <div className={`w-4 h-4 rounded-full ${
-                  overallStatus === 'ok' ? 'bg-status-ok' : 
-                  overallStatus === 'error' ? 'bg-status-error' : 
-                  'bg-status-warn'
-                } shadow-lg`}></div>
-                <p className="text-2xl font-bold text-white">
-                  {overallStatus === 'ok' ? 'Operacional' : 
-                   overallStatus === 'error' ? 'Incidentes Ativos' : 
-                   'Atenção'}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         <StatusHeader />
         
