@@ -202,26 +202,39 @@ All colors MUST be HSL.
   }
 }
 
-/* Professional Cards */
+/* Professional Cards & Status Components */
 @layer components {
   .glass-card {
-    @apply bg-card border border-border rounded-lg;
+    background-color: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     transition: var(--transition);
   }
-  
   
   .glass-card:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   
   .glass-card-lg {
-    @apply glass-card p-6;
+    background-color: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    padding: 1.5rem;
   }
 
   /* Status Pills */
   .status-pill {
-    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
   }
 
   .status-pill-ok {
