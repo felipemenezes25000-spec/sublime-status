@@ -59,20 +59,21 @@ export const WorldClockTicker = () => {
   }, []);
 
   return (
-    <div className="glass-card-lg overflow-hidden mb-8">
-      <div className="flex items-center gap-2 mb-3">
-        <Clock className="h-5 w-5 text-primary" />
-        <h3 className="text-sm font-semibold">Horários dos Escritórios BTG Pactual</h3>
+    <div className="py-3 overflow-hidden">
+      <div className="flex items-center gap-2 mb-2">
+        <Clock className="h-4 w-4 text-primary-foreground" />
+        <h3 className="text-xs font-semibold uppercase text-primary-foreground tracking-wider">
+          BTG Global Offices
+        </h3>
       </div>
       <div className="relative overflow-hidden">
         <div className="ticker-wrapper">
           <div className="ticker-content">
             {times.concat(times).map((item, idx) => (
-              <div key={idx} className="ticker-item">
-                <Clock className="h-3.5 w-3.5 text-muted-foreground" />
-                <span className="font-medium">{item.city}</span>
-                <span className="text-primary font-mono">{item.time}</span>
-                <span className="text-xs text-muted-foreground">{item.offset}</span>
+              <div key={idx} className="flex items-center gap-2 px-3 py-1.5 rounded bg-primary-hover/30 backdrop-blur-sm whitespace-nowrap">
+                <span className="text-xs font-medium text-primary-foreground">{item.city}</span>
+                <span className="text-xs font-mono text-primary-foreground font-semibold">{item.time}</span>
+                <span className="text-[10px] text-primary-foreground/70">{item.offset}</span>
               </div>
             ))}
           </div>

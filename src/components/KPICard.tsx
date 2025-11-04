@@ -19,21 +19,21 @@ export const KPICard = ({ kpi, type }: KPICardProps) => {
   };
 
   return (
-    <div className="glass-card p-4 hover:shadow-md transition-all duration-200">
-      <div className="flex items-center justify-between mb-3">
+    <div className="glass-card p-6 hover:shadow-lg transition-all duration-300 group border-l-4 border-l-primary/20 hover:border-l-primary">
+      <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-1.5">
-          <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wide">{kpi.label}</h3>
+          <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">{kpi.label}</h3>
           <KPITooltip type={type} />
         </div>
         {getTrendIcon()}
       </div>
       
       <div className="space-y-2">
-        <p className="text-2xl sm:text-3xl font-bold">{kpi.value}</p>
+        <p className="text-3xl sm:text-4xl font-bold group-hover:scale-105 transition-transform">{kpi.value}</p>
         {kpi.change && (
           <p
             className={cn(
-              'text-xs font-medium',
+              'text-sm font-medium',
               kpi.trend === 'up' && 'text-status-ok',
               kpi.trend === 'down' && 'text-status-error',
               !kpi.trend && 'text-muted-foreground'

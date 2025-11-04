@@ -224,6 +224,23 @@ All colors MUST be HSL.
     padding: 1.5rem;
   }
 
+  .ticker-wrapper {
+    width: 100%;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  }
+
+  .ticker-content {
+    display: flex;
+    gap: 1rem;
+    animation: ticker 60s linear infinite;
+    width: max-content;
+  }
+
+  .ticker-content:hover {
+    animation-play-state: paused;
+  }
+
   .status-pill {
     display: inline-flex;
     align-items: center;
@@ -290,22 +307,5 @@ All colors MUST be HSL.
   .status-dot-maint {
     @apply bg-[hsl(var(--status-maint))];
     box-shadow: 0 0 8px hsl(var(--status-maint) / 0.5);
-  }
-
-  .ticker-wrapper {
-    @apply w-full overflow-hidden;
-  }
-
-  .ticker-content {
-    @apply flex gap-6;
-    animation: ticker 30s linear infinite;
-  }
-
-  .ticker-content:hover {
-    animation-play-state: paused;
-  }
-
-  .ticker-item {
-    @apply flex items-center gap-2 px-4 py-2 rounded-lg bg-card/30 whitespace-nowrap;
   }
 }
