@@ -49,15 +49,10 @@ export default {
         },
         status: {
           ok: "hsl(var(--status-ok))",
-          "ok-bg": "hsl(var(--status-ok-bg))",
           warn: "hsl(var(--status-warn))",
-          "warn-bg": "hsl(var(--status-warn-bg))",
           error: "hsl(var(--status-error))",
-          "error-bg": "hsl(var(--status-error-bg))",
           info: "hsl(var(--status-info))",
-          "info-bg": "hsl(var(--status-info-bg))",
           maint: "hsl(var(--status-maint))",
-          "maint-bg": "hsl(var(--status-maint-bg))",
         },
         glass: {
           DEFAULT: "hsl(var(--glass))",

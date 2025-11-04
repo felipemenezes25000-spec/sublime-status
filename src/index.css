@@ -122,6 +122,12 @@ All colors MUST be HSL.
     --status-maint: 189 84% 50%;
     --status-maint-bg: 189 84% 15%;
     
+    /* Ticker Animation */
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    
     /* Glassmorphism - Dark */
     --glass: 218 78% 12%;
     --glass-border: 217 80% 25%;
@@ -196,17 +202,10 @@ All colors MUST be HSL.
   }
 }
 
-@keyframes ticker {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-/* Professional Cards & Status Components */
+/* Professional Cards */
 @layer components {
   .glass-card {
-    background-color: hsl(var(--card));
-    border: 1px solid hsl(var(--border));
-    border-radius: var(--radius);
+    @apply bg-card border border-border rounded-lg;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     transition: var(--transition);
   }
@@ -216,48 +215,32 @@ All colors MUST be HSL.
   }
   
   .glass-card-lg {
-    background-color: hsl(var(--card));
-    border: 1px solid hsl(var(--border));
-    border-radius: var(--radius);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    transition: var(--transition);
-    padding: 1.5rem;
+    @apply glass-card p-6;
   }
 
+  /* Status Pills */
   .status-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.375rem;
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    white-space: nowrap;
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap;
   }
 
   .status-pill-ok {
-    background-color: hsl(var(--status-ok-bg));
-    color: hsl(var(--status-ok));
+    @apply bg-status-ok-bg text-status-ok;
   }
 
   .status-pill-warn {
-    background-color: hsl(var(--status-warn-bg));
-    color: hsl(var(--status-warn));
+    @apply bg-status-warn-bg text-status-warn;
   }
 
   .status-pill-error {
-    background-color: hsl(var(--status-error-bg));
-    color: hsl(var(--status-error));
+    @apply bg-status-error-bg text-status-error;
   }
 
   .status-pill-info {
-    background-color: hsl(var(--status-info-bg));
-    color: hsl(var(--status-info));
+    @apply bg-status-info-bg text-status-info;
   }
 
   .status-pill-maint {
-    background-color: hsl(var(--status-maint-bg));
-    color: hsl(var(--status-maint));
+    @apply bg-status-maint-bg text-status-maint;
   }
 }
 
@@ -292,6 +275,7 @@ All colors MUST be HSL.
     box-shadow: 0 0 8px hsl(var(--status-maint) / 0.5);
   }
 
+  /* Ticker Styles */
   .ticker-wrapper {
     @apply w-full overflow-hidden;
   }
@@ -308,4 +292,9 @@ All colors MUST be HSL.
   .ticker-item {
     @apply flex items-center gap-2 px-4 py-2 rounded-lg bg-card/30 whitespace-nowrap;
   }
+}
+
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
