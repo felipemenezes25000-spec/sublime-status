@@ -1,0 +1,5 @@
+[functions.status-aggregator]
+verify_jwt = false
+
+[functions.status-overview]
+verify_jwt = false
