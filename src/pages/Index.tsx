@@ -10,25 +10,61 @@ import { WorldClockTicker } from '@/components/WorldClockTicker';
 import { AllProductsTicker } from '@/components/AllProductsTicker';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Search, Rss, Bell } from 'lucide-react';
+import { Search, Rss, Bell, Loader2 } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { useStatusData, useIncidents, useMaintenances, useComponents } from '@/hooks/useStatusData';
+import { mapApiKPIsToUI, mapApiComponentsToAreas, mapApiIncidentsToUI, mapApiMaintenancesToUI, mapUptimeDataToUI } from '@/utils/statusMapper';
 import { mockKPIs, mockAreas, mockIncidents, mockMaintenances, generateUptimeData } from '@/data/mockData';
-import { useState } from 'react';
+
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const uptimeData = generateUptimeData();
+  
+  // Fetch data from edge functions
+  const { data: overviewData, isLoading: overviewLoading } = useStatusData();
+  const { data: incidentsData, isLoading: incidentsLoading } = useIncidents();
+  const { data: maintenancesData, isLoading: maintenancesLoading } = useMaintenances();
+  const { data: componentsData, isLoading: componentsLoading } = useComponents();
 
-  const hasErrors = mockAreas.some(area => area.status === 'error');
-  const hasWarnings = mockAreas.some(area => area.status === 'warn');
+  // Map API data to UI format or fallback to mock data
+  const kpis = useMemo(() => 
+    overviewData?.kpis ? mapApiKPIsToUI(overviewData.kpis) : mockKPIs,
+    [overviewData]
+  );
+
+  const areas = useMemo(() => 
+    componentsData ? mapApiComponentsToAreas(componentsData) : mockAreas,
+    [componentsData]
+  );
+
+  const incidents = useMemo(() => 
+    incidentsData ? mapApiIncidentsToUI(incidentsData) : mockIncidents,
+    [incidentsData]
+  );
+
+  const maintenances = useMemo(() => 
+    maintenancesData ? mapApiMaintenancesToUI(maintenancesData) : mockMaintenances,
+    [maintenancesData]
+  );
+
+  const uptimeData = useMemo(() => 
+    overviewData?.uptime90d ? mapUptimeDataToUI(overviewData.uptime90d) : generateUptimeData(),
+    [overviewData]
+  );
+
+  const hasErrors = areas.some(area => area.status === 'error');
+  const hasWarnings = areas.some(area => area.status === 'warn');
   const overallStatus = hasErrors ? 'error' : hasWarnings ? 'warn' : 'ok';
-  const affectedCount = mockAreas.filter(a => a.status !== 'ok').length;
+  const affectedCount = areas.filter(a => a.status !== 'ok').length;
 
-  const filteredAreas = mockAreas.filter(area =>
+  const filteredAreas = areas.filter(area =>
     area.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     area.journeys.some(j =>
       j.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       j.products.some(p => p.name.toLowerCase().includes(searchQuery.toLowerCase()))
     )
   );
+
+  const isLoading = overviewLoading || incidentsLoading || maintenancesLoading || componentsLoading;
   return <div className="min-h-screen bg-background">
       {/* Top Tickers Section */}
       <div className="bg-primary border-b border-primary-hover shadow-sm">
@@ -39,7 +75,7 @@ const Index = () => {
       
       <div className="bg-card border-b border-border shadow-sm">
         <div className="container mx-auto px-4 max-w-7xl">
-          <AllProductsTicker areas={mockAreas} />
+          <AllProductsTicker areas={areas} />
         </div>
       </div>
 
@@ -61,12 +97,18 @@ const Index = () => {
 
         {/* KPIs Section */}
         <section className="mb-8 animate-fade-in" style={{ animationDelay: '0.1s' }}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            <KPICard kpi={mockKPIs[0]} type="mttr" />
-            <KPICard kpi={mockKPIs[1]} type="mtbf" />
-            <KPICard kpi={mockKPIs[2]} type="sla" />
-            <KPICard kpi={mockKPIs[3]} type="slo" />
-          </div>
+          {isLoading ? (
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              <KPICard kpi={kpis[0]} type="mttr" />
+              <KPICard kpi={kpis[1]} type="mtbf" />
+              <KPICard kpi={kpis[2]} type="sla" />
+              <KPICard kpi={kpis[3]} type="slo" />
+            </div>
+          )}
         </section>
 
         {/* Uptime Timeline */}
@@ -135,7 +177,11 @@ const Index = () => {
                 </Button>
               </div>
               <div className="space-y-4">
-                {mockIncidents.map(incident => <IncidentCard key={incident.id} incident={incident} />)}
+                {incidents.length > 0 ? (
+                  incidents.map(incident => <IncidentCard key={incident.id} incident={incident} />)
+                ) : (
+                  <p className="text-sm text-muted-foreground">Nenhum incidente ativo no momento.</p>
+                )}
               </div>
             </div>
           </section>
@@ -148,7 +194,11 @@ const Index = () => {
                 <p className="text-sm text-muted-foreground">Janelas de manutenção planejadas</p>
               </div>
               <div className="space-y-4">
-                {mockMaintenances.map(maintenance => <MaintenanceCard key={maintenance.id} maintenance={maintenance} />)}
+                {maintenances.length > 0 ? (
+                  maintenances.map(maintenance => <MaintenanceCard key={maintenance.id} maintenance={maintenance} />)
+                ) : (
+                  <p className="text-sm text-muted-foreground">Nenhuma manutenção programada no momento.</p>
+                )}
               </div>
             </div>
           </section>
