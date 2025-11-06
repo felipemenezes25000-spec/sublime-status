@@ -63,14 +63,20 @@ export const useStatusData = () => {
   return useQuery({
     queryKey: ['status-overview'],
     queryFn: async () => {
-      const { data, error } = await supabase.functions.invoke('status-overview', {
-        method: 'GET',
-      });
-
-      if (error) throw error;
-      return data as StatusOverview;
+      const response = await fetch(
+        `https://xodbsskkcyvzbknrsars.supabase.co/functions/v1/status-aggregator?action=overview`,
+        {
+          headers: {
+            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhvZGJzc2trY3l2emJrbnJzYXJzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIyOTQ0MTEsImV4cCI6MjA3Nzg3MDQxMX0.cB5wIeOr4j9PUKXGNeGH7s-1_yV0Qc9_UEOMqsmCdYw',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      
+      if (!response.ok) throw new Error('Failed to fetch overview');
+      return await response.json() as StatusOverview;
     },
-    refetchInterval: 60000, // Refresh every 60 seconds
+    refetchInterval: 60000,
     retry: 3,
   });
 };
@@ -79,13 +85,18 @@ export const useIncidents = () => {
   return useQuery({
     queryKey: ['status-incidents'],
     queryFn: async () => {
-      const { data, error } = await supabase.functions.invoke('status-aggregator', {
-        method: 'GET',
-        body: { action: 'incidents', status: 'active' },
-      });
-
-      if (error) throw error;
-      return data as ApiIncident[];
+      const response = await fetch(
+        `https://xodbsskkcyvzbknrsars.supabase.co/functions/v1/status-aggregator?action=incidents&status=active`,
+        {
+          headers: {
+            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhvZGJzc2trY3l2emJrbnJzYXJzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIyOTQ0MTEsImV4cCI6MjA3Nzg3MDQxMX0.cB5wIeOr4j9PUKXGNeGH7s-1_yV0Qc9_UEOMqsmCdYw',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      
+      if (!response.ok) throw new Error('Failed to fetch incidents');
+      return await response.json() as ApiIncident[];
     },
     refetchInterval: 60000,
     retry: 3,
@@ -96,13 +107,18 @@ export const useMaintenances = () => {
   return useQuery({
     queryKey: ['status-maintenances'],
     queryFn: async () => {
-      const { data, error } = await supabase.functions.invoke('status-aggregator', {
-        method: 'GET',
-        body: { action: 'maintenances', status: 'scheduled' },
-      });
-
-      if (error) throw error;
-      return data as ApiMaintenance[];
+      const response = await fetch(
+        `https://xodbsskkcyvzbknrsars.supabase.co/functions/v1/status-aggregator?action=maintenances&status=scheduled`,
+        {
+          headers: {
+            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhvZGJzc2trY3l2emJrbnJzYXJzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIyOTQ0MTEsImV4cCI6MjA3Nzg3MDQxMX0.cB5wIeOr4j9PUKXGNeGH7s-1_yV0Qc9_UEOMqsmCdYw',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      
+      if (!response.ok) throw new Error('Failed to fetch maintenances');
+      return await response.json() as ApiMaintenance[];
     },
     refetchInterval: 60000,
     retry: 3,
@@ -113,13 +129,18 @@ export const useComponents = () => {
   return useQuery({
     queryKey: ['status-components'],
     queryFn: async () => {
-      const { data, error } = await supabase.functions.invoke('status-aggregator', {
-        method: 'GET',
-        body: { action: 'components' },
-      });
-
-      if (error) throw error;
-      return data as ApiComponent[];
+      const response = await fetch(
+        `https://xodbsskkcyvzbknrsars.supabase.co/functions/v1/status-aggregator?action=components`,
+        {
+          headers: {
+            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhvZGJzc2trY3l2emJrbnJzYXJzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIyOTQ0MTEsImV4cCI6MjA3Nzg3MDQxMX0.cB5wIeOr4j9PUKXGNeGH7s-1_yV0Qc9_UEOMqsmCdYw',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      
+      if (!response.ok) throw new Error('Failed to fetch components');
+      return await response.json() as ApiComponent[];
     },
     refetchInterval: 60000,
     retry: 3,

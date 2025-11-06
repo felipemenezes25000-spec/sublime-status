@@ -17,9 +17,15 @@ export interface Maintenance { id: string; providerId: string; title: string; st
 export interface MetricSample { componentId: string; ts: string; latencyP95Ms?: number; errorRatePct?: number; trafficRps?: number; saturationPct?: number; simulado?: boolean }
 export interface KPIs { mttrMinutes: number; mtbfDays: number; slaPct: number; sloPct: number; uptime90dPct: number }
 
-// Environment configuration
+// Environment configuration with demo sources
+const defaultSources = [
+  'https://status.openai.com/api/v2',
+  'https://www.githubstatus.com/api/v2',
+  'https://status.stripe.com/api/v2'
+];
+
 const env = {
-  sources: JSON.parse(Deno.env.get('STATUS_SOURCES') || '[]'),
+  sources: JSON.parse(Deno.env.get('STATUS_SOURCES') || JSON.stringify(defaultSources)),
   refreshSeconds: 60,
   slaTarget: 99.9,
   tz: "America/Sao_Paulo",

@@ -11,15 +11,26 @@ serve(async (req) => {
   }
 
   try {
-    // Buscar dados do aggregator
-    const aggregatorUrl = `${Deno.env.get('SUPABASE_URL')}/functions/v1/status-aggregator`;
+    const supabaseUrl = Deno.env.get('SUPABASE_URL') || 'https://xodbsskkcyvzbknrsars.supabase.co';
+    const aggregatorUrl = `${supabaseUrl}/functions/v1/status-aggregator`;
+    
+    console.log('Calling aggregator:', aggregatorUrl);
+    
     const response = await fetch(`${aggregatorUrl}?action=overview`, {
       headers: {
         'Authorization': req.headers.get('Authorization') || '',
+        'apikey': req.headers.get('apikey') || '',
       },
     });
 
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Aggregator error:', response.status, errorText);
+      throw new Error(`Aggregator returned ${response.status}: ${errorText}`);
+    }
+
     const data = await response.json();
+    console.log('Overview data retrieved successfully');
 
     return new Response(JSON.stringify(data), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -28,7 +39,10 @@ serve(async (req) => {
   } catch (error) {
     console.error('Error in status-overview:', error);
     return new Response(
-      JSON.stringify({ error: error instanceof Error ? error.message : 'Unknown error' }),
+      JSON.stringify({ 
+        error: error instanceof Error ? error.message : 'Unknown error',
+        details: error instanceof Error ? error.stack : undefined
+      }),
       {
         status: 500,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
