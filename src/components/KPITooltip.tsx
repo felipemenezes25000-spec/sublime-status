@@ -1,54 +1,82 @@
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { HelpCircle } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Clock, Activity, Target, TrendingUp, HelpCircle } from 'lucide-react';
 
 interface KPITooltipProps {
   type: 'mttr' | 'mtbf' | 'sla' | 'slo';
 }
 
-export const KPITooltip = ({ type }: KPITooltipProps) => {
-  const kpiInfo = {
-    mttr: {
-      title: 'MTTR - Mean Time To Repair',
-      description: 'Tempo médio para reparar um incidente. Quanto menor, melhor a capacidade de resposta da equipe.',
-      example: 'Se 3 incidentes levaram 2h, 4h e 6h para serem resolvidos, o MTTR é 4h.',
-    },
-    mtbf: {
-      title: 'MTBF - Mean Time Between Failures',
-      description: 'Tempo médio entre falhas consecutivas. Quanto maior, mais confiável é o sistema.',
-      example: 'Se ocorreram 3 falhas em 90 dias, o MTBF é 30 dias.',
-    },
-    sla: {
-      title: 'SLA - Service Level Agreement',
-      description: 'Acordo de nível de serviço contratual com garantias específicas de disponibilidade e desempenho.',
-      example: 'SLA de 99.9% significa no máximo 43 minutos de indisponibilidade por mês.',
-    },
-    slo: {
-      title: 'SLO - Service Level Objective',
-      description: 'Objetivo interno de nível de serviço. Meta operacional mais rigorosa que o SLA para garantir margem de segurança.',
-      example: 'SLO de 99.95% quando o SLA é 99.9%, garantindo buffer de segurança.',
-    },
-  };
+const tooltipContent = {
+  mttr: {
+    title: 'MTTR - Mean Time To Recovery',
+    description: 'Tempo médio para recuperação de incidentes. Mede a velocidade de resposta da equipe. Quanto menor, melhor.',
+    formula: 'Total de tempo de inatividade ÷ Número de incidentes',
+    icon: Clock,
+    color: 'text-blue-500',
+    ideal: 'Ideal: < 15 minutos'
+  },
+  mtbf: {
+    title: 'MTBF - Mean Time Between Failures',
+    description: 'Tempo médio entre falhas do sistema. Indica a confiabilidade da infraestrutura. Quanto maior, melhor.',
+    formula: 'Tempo total operacional ÷ Número de falhas',
+    icon: Activity,
+    color: 'text-green-500',
+    ideal: 'Ideal: > 720 horas (30 dias)'
+  },
+  sla: {
+    title: 'SLA - Service Level Agreement',
+    description: 'Compromisso contratual de disponibilidade do serviço. Define as expectativas mínimas de performance.',
+    formula: '(Tempo total - Tempo de inatividade) ÷ Tempo total × 100',
+    icon: Target,
+    color: 'text-purple-500',
+    ideal: 'Ideal: ≥ 99.9%'
+  },
+  slo: {
+    title: 'SLO - Service Level Objective',
+    description: 'Meta interna de nível de serviço. Geralmente mais rigorosa que o SLA para criar margem de segurança.',
+    formula: 'Similar ao SLA, com target mais alto',
+    icon: TrendingUp,
+    color: 'text-orange-500',
+    ideal: 'Ideal: ≥ 99.95%'
+  }
+};
 
-  const info = kpiInfo[type];
+export const KPITooltip = ({ type }: KPITooltipProps) => {
+  const config = tooltipContent[type];
+  const Icon = config.icon;
 
   return (
-    <TooltipProvider>
-      <Tooltip delayDuration={200}>
+    <TooltipProvider delayDuration={200}>
+      <Tooltip>
         <TooltipTrigger asChild>
-          <button className="inline-flex items-center justify-center">
-            <HelpCircle className="h-4 w-4 text-muted-foreground hover:text-foreground transition-colors" />
+          <button 
+            className="cursor-help hover:text-primary transition-colors"
+            aria-label={`Informações sobre ${config.title}`}
+          >
+            <HelpCircle className="h-3.5 w-3.5" />
           </button>
         </TooltipTrigger>
-        <TooltipContent side="top" className="max-w-xs">
-          <div className="space-y-2">
-            <p className="font-semibold text-sm">{info.title}</p>
-            <p className="text-xs">{info.description}</p>
-            <p className="text-xs text-muted-foreground italic">{info.example}</p>
+        <TooltipContent side="top" className="max-w-sm">
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <Icon className={`h-5 w-5 ${config.color}`} />
+              <p className="font-semibold">{config.title}</p>
+            </div>
+            
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              {config.description}
+            </p>
+            
+            <div className="space-y-1.5 pt-2 border-t border-border">
+              <div>
+                <p className="text-xs font-semibold text-muted-foreground mb-1">Cálculo:</p>
+                <p className="text-xs font-mono bg-accent/20 p-2 rounded">
+                  {config.formula}
+                </p>
+              </div>
+              <p className="text-xs font-medium text-primary">
+                {config.ideal}
+              </p>
+            </div>
           </div>
         </TooltipContent>
       </Tooltip>

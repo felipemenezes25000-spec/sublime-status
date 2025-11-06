@@ -3,26 +3,76 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Status Page BTG Pactual</title>
-    <meta name="description" content="Página de status em tempo real dos sistemas BTG Pactual. Monitore incidentes, manutenções e uptime de todos os serviços." />
-    <meta name="author" content="BTG Pactual" />
-
-    <meta property="og:title" content="Status Page BTG Pactual" />
-    <meta property="og:description" content="Página de status em tempo real dos sistemas BTG Pactual" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@btgpactual" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
     
+    <!-- Primary Meta Tags -->
+    <title>Status Page BTG Pactual - Monitoramento em Tempo Real</title>
+    <meta name="title" content="Status Page BTG Pactual - Monitoramento em Tempo Real" />
+    <meta name="description" content="Acompanhe o status operacional de todos os sistemas BTG Pactual em tempo real. Monitore incidentes, manutenções programadas, KPIs e uptime dos serviços." />
+    <meta name="keywords" content="status page, BTG Pactual, monitoramento, uptime, incidentes, SLA, disponibilidade, sistemas" />
+    <meta name="author" content="BTG Pactual" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://status.btgpactual.com" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://status.btgpactual.com/" />
+    <meta property="og:title" content="Status Page BTG Pactual - Monitoramento em Tempo Real" />
+    <meta property="og:description" content="Acompanhe o status operacional de todos os sistemas BTG Pactual em tempo real." />
+    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="BTG Pactual Status Page" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://status.btgpactual.com/" />
+    <meta name="twitter:title" content="Status Page BTG Pactual - Monitoramento em Tempo Real" />
+    <meta name="twitter:description" content="Acompanhe o status operacional de todos os sistemas BTG Pactual em tempo real." />
+    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta name="twitter:site" content="@btgpactual" />
+    <meta name="twitter:creator" content="@btgpactual" />
+    
+    <!-- Structured Data - JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Status Page BTG Pactual",
+      "description": "Página de status operacional em tempo real dos sistemas BTG Pactual",
+      "url": "https://status.btgpactual.com",
+      "applicationCategory": "MonitoringApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL"
+      },
+      "provider": {
+        "@type": "Organization",
+        "name": "BTG Pactual",
+        "url": "https://www.btgpactual.com"
+      }
+    }
+    </script>
+    
+    <!-- Performance & Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#195AB4" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#195AB4" />
   </head>
 
   <body>
-    <div id="root"></div>
+    <div id="root" role="main"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <noscript>
+      <div style="text-align: center; padding: 2rem; font-family: sans-serif;">
+        <h1>JavaScript Required</h1>
+        <p>Esta página requer JavaScript para funcionar. Por favor, habilite o JavaScript no seu navegador.</p>
+      </div>
+    </noscript>
   </body>
 </html>

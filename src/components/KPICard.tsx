@@ -1,7 +1,7 @@
 import { KPI } from '@/types/status';
+import { KPITooltip } from './KPITooltip';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { KPITooltip } from './KPITooltip';
 
 interface KPICardProps {
   kpi: KPI;
